@@ -1,37 +1,55 @@
-version: "3.8"
+version: '3.8'
 
 services:
-  nginx:
-    build: requirements/nginx/.
-    container_name: nginx
-    depends_on:
-      - wordpress
-      - mariadb
-    ports:
-      - "80:80"
-    volumes:
-      - ./web:/var/www/html
-    networks:
-      - inception
+    nginx:
+        build: ./requirements/nginx
+        container_name: nginx
+        networks:
+            - inception42
+        ports:
+            - '80:80'
+            - '443:443'
+        restart: always
+        depends_on:
+            - wordpress
+        volumes:
+            - wordpress_data:/var/www/html
 
-  wordpress:
-    build: requirements/wordpress/.
-    container_name: wp-php
-    depends_on:
-      - mariadb
-    volumes:
-      - ./web:/var/www/html
-    networks:
-      - inception
+    mariadb:
+        build: ./requirements/mariadb
+        container_name: mariadb
+        env_file:
+            - .env
+        networks:
+            - inception42
+        volumes:
+            - mariadb_data:/var/www/html
+        restart: always
 
-  mariadb:
-    build: requirements/mariadb/.
-    container_name: mariadb
-    volumes:
-      - ./database:/var/lib/mysql
-    networks:
-      - inception
+    wordpress:
+        build: ./requirements/wordpress
+        container_name: wordpress
+        env_file:
+            - .env
+        networks:
+            - inception42
+        restart: always
+        volumes:
+            - wordpress_data:/var/www/html
+
+    adminer:
+        image: adminer
+        container_name: adminer
+        networks:
+            - inception42
+        restart: always
+        ports:
+            - '8080:8080'
+
+volumes:
+    wordpress_data:
+    mariadb_data:
 
 networks:
-  inception:
-
+    inception42:
+        name: inception42
