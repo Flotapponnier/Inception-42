@@ -1,30 +1,12 @@
 FROM debian:latest
-
-RUN apt-get -y update && apt-get upgrade -y
-RUN apt-get install -y mariadb-client
-
-RUN apt-cache search php-fpm
-
-RUN apt install -y \ 
-curl \
-php \
-php-fpm \
-php-json \
-php-mysql \
-php-curl \
-php-dom \
-php-exif \
-php-fileinfo \
-php-igbinary \
-php-imagick \
-php-intl \
-php-mbstring \
-php-xml \
-php-zip
-
-RUN dpkg -l | grep php
-
-COPY ./conf/wordpress-script.sh /wordpress-script.sh
-RUN chmod +x /wordpress-script.sh
-
-ENTRYPOINT ["./wordpress-script.sh"]
+# Update packages and install dependencies
+RUN apt update -y && apt upgrade -y && \
+    apt install -y curl php8.2 php8.2-fpm php8.2-mysql mariadb-client netcat-openbsd && \
+    apt clean && rm -rf /var/lib/apt/lists/*
+# Copy configuration files for PHP-FPM
+COPY conf/www.conf /etc/php/8.2/fpm/pool.d/www.conf
+# Copy the WordPress setup script and make it executable
+COPY tools/wordpress.sh /usr/local/bin/wordpress.sh
+RUN chmod +x /usr/local/bin/wordpress.sh
+# Run the WordPress script as the container's default command
+CMD ["/usr/local/bin/wordpress.sh"]

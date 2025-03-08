@@ -1,11 +1,12 @@
 FROM debian:latest
 
-RUN apt-get -y update && apt-get upgrade -y
+RUN apt update -y && apt upgrade -y && \
+    apt install -y mariadb-server && \
+    apt clean && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get install -y mariadb-server
+COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+COPY tools/mariadb.sh /usr/local/bin/mariadb.sh
 
-COPY ./conf/maria-script.sh /maria-script.sh
+RUN chmod +x /usr/local/bin/mariadb.sh
 
-RUN chmod +x /maria-script.sh
-
-ENTRYPOINT ["./maria-script.sh"]
+CMD ["/usr/local/bin/mariadb.sh"]

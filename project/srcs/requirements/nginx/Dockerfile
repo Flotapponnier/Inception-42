@@ -1,20 +1,21 @@
 FROM debian:latest
 
-RUN apt update && apt upgrade -y && \
-    apt install -y nginx openssl
+RUN apt update -y && apt upgrade -y && \
+    apt install -y nginx openssl && \
+    apt clean && rm -rf /var/lib/apt/lists/*
 
+# Create SSL directory
 RUN mkdir -p /etc/nginx/ssl
 
+# Generate SSL certificate
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-    -keyout /etc/nginx/ssl/ftapponn.42.fr.key \
-    -out /etc/nginx/ssl/ftapponn.42.fr.crt \
-    -subj "/CN=ftapponn.42.fr"
+    -keyout /etc/nginx/ssl/ftapponn.42.crt \
+    -out /etc/nginx/ssl/ftapponn.42.key \
+    -subj "/C=FR/ST=IDF/L=Paris/O=42/OU=42/CN=ftapponn.42.fr"
 
-# Copy the configuration file
-COPY default /etc/nginx/sites-available/default
+RUN chmod 644 /etc/nginx/ssl/ftapponn.42.crt /etc/nginx/ssl/ftapponn.42.key
 
-# Expose both HTTP and HTTPS ports
-EXPOSE 80 443
+# Copy Nginx configuration
+COPY conf/nginx.conf /etc/nginx/nginx.conf
 
 CMD ["nginx", "-g", "daemon off;"]
-
