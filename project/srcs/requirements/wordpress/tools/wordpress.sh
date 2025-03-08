@@ -29,10 +29,6 @@ if [ ! -f wp-config.php ]; then
     sed -i "s/password_here/${MYSQL_PASSWORD}/" wp-config.php
     sed -i "s/localhost/mariadb/" wp-config.php
     
-    # Add debug settings
-    echo "define('WP_DEBUG', true);" >> wp-config.php
-    echo "define('WP_DEBUG_LOG', true);" >> wp-config.php
-fi
 
 # Test database connection explicitly
 echo "Testing database connection..."
