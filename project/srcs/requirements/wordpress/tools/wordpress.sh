@@ -20,15 +20,15 @@ echo "MariaDB is up and running!"
 # Download WordPress if not already present
 if [ ! -f wp-config.php ]; then
     echo "Downloading WordPress..."
-    wp core download --allow-root
-    
+    wp core download --allow-root 
+
     echo "Configuring wp-config.php..."
     cp wp-config-sample.php wp-config.php
     sed -i "s/database_name_here/${MYSQL_DATABASE}/" wp-config.php
     sed -i "s/username_here/${MYSQL_USER}/" wp-config.php
     sed -i "s/password_here/${MYSQL_PASSWORD}/" wp-config.php
     sed -i "s/localhost/mariadb/" wp-config.php
-    
+fi 
 
 # Test database connection explicitly
 echo "Testing database connection..."
