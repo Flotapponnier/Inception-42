@@ -12,8 +12,13 @@ clean:
 	docker system prune -af --volumes
 
 fclean: clean
-	if [ -n "$$(docker images -q)" ]; then docker rmi $$(docker images -q); fi
-	sudo rm -rf /home/florent/inception/project/data/mariadb/*
-	sudo rm -rf /home/florent/inception/project/data/wordpress/*
+	docker stop $$(docker ps -a -q)
+	docker rm $$(docker ps -a -q)
+	docker rmi $$(docker images -q)
+	docker volume rm $$(docker volume ls -q)
+	(docker network rm $$(docker network ls -q) || true) 2>/dev/null
+	sudo rm -rf /home/ftapponn/data/mariadb/*
+	sudo rm -rf /home/ftapponn/data/wordpress/*
 
 re: fclean all
+

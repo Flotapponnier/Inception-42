@@ -83,6 +83,6 @@ mkdir -p /run/php
 chown -R www-data:www-data /var/www/wordpress
 chown -R www-data:www-data /run/php
 
-echo "Starting PHP-FPM...\n"
-echo "Wordpress is ready\n"
-exec php-fpm8.2 -F
+echo "Starting PHP-FPM..."
+echo "Wordpress is ready"
+exec php-fpm7.3 -F
