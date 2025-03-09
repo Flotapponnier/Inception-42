@@ -25,12 +25,6 @@ services:
     build: ./requirements/wordpress
     image: wordpress:notlatest
     env_file: .env
-    environment:
-      WORDPRESS_DB_HOST: mariadb:3306
-      WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
-      WORDPRESS_DB_USER: ${MYSQL_USER}
-      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
-      WORDPRESS_DEBUG: 1
     volumes:
       - wordpress:/var/www/wordpress
     restart: always
