@@ -103,8 +103,9 @@ A Dockerfile is a text file that contains instructions on how to build a Docker 
 The docker-compose.yml file defines how the different services (containers) work together in the Docker environment. It includes details such as which images to use, container ports, environment variables, and how containers are linked.
 
 
-How the Docker Compose Works
-Services: Each part of the application (Nginx, MariaDB, WordPress) is defined as a service.
+__How the Docker Compose Works__
+
+__Services:__ Each part of the application (Nginx, MariaDB, WordPress) is defined as a service.
 
 __Ports:__ Containers expose ports so they can be accessed from outside the container. For example, Nginx listens on port 80, and WordPress listens on port 8080.
 
