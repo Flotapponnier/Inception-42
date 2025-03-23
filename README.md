@@ -28,7 +28,7 @@ In this project, you can use the Makefile to automate the build process. To comp
 make
 ```
 ## Architecture :
-![Inception Image](image/inception.png)
+![Inception Image](image/Inception.png)
 ```sh
 ├── Makefile
 └── srcs
@@ -115,7 +115,7 @@ __Networks:__ Containers are connected to the same network to allow communicatio
 __.env :__ The .env file is used to define environment variables that configure the application, such as database credentials, API keys, and other sensitive information, allowing you to easily manage and secure your project's settings.
 
 __result after docker-compose up command and accessing to ftapponn.42.fr :__
-![Inception WordPress Image](image/inception-wordpress.png)
+![Inception WordPress Image](image/inception_wordpress.png)
 
 ## Conclusion
 Using Docker and Docker Compose in this project allows for easy deployment and management of the WordPress website with its associated services (Nginx and MariaDB). 
