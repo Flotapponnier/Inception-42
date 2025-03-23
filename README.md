@@ -114,7 +114,7 @@ __Networks:__ Containers are connected to the same network to allow communicatio
 
 __.env :__ The .env file is used to define environment variables that configure the application, such as database credentials, API keys, and other sensitive information, allowing you to easily manage and secure your project's settings.
 
-__result after docker-compose up command and accessing to ftapponn.42.fr :__
+## __result after docker-compose up command and accessing to ftapponn.42.fr :__
 ![Inception WordPress Image](image/inception_wordpress.png)
 
 ## Conclusion
